@@ -57,14 +57,14 @@ def filterPublisherByTotalSales_iter(totalSales):
 
 
 #Usando la función de orden superior "filter" y una función lambda de filtrado:
-def filterPublisherByTotalSales_FilterLambda(totalSales):
+def filterPublisherByTotalSales_FilterLambda(totalSales, country, publishers):
 
     #def filterFunction1(rec, total_sales):
-     #   return rec["total_sales"] == totalSales
+        #return rec["total_sales"] == totalSales
     #funcion de filtrado:
     #se aplica sobre cada elemento de la lista, que es un diccionario
     #de cada elemento, miro si la llave total_sales corresponde al parámetro
-    filterFunction2 = lambda x: x["total_sales"] == totalSales
+    filterFunction2 = lambda x: x["total_sales"] == totalSales and x["Country"] == country
     filteredList = list (filter(filterFunction2, publishers))
     return filteredList
 
