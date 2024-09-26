@@ -63,3 +63,58 @@ class PayrollStrategy:
 
 #Ejercicio: -Implementar principios S, O (abierto y cerrado, responsabilidad única) 2 ejemplos.
 #-Ejemplo de principio L (LSP) definición. (uso de ABC Abstract Base Clases)
+
+#Principio S(responsabilidad única):
+
+class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
+    def print_student_details(self):
+        print(f"Student: {self.name}, Grade: {self.grade}")
+
+class StudentSaver:
+    def save_to_file(self, student):
+        with open("students.txt", "a") as file:
+            file.write(f"{student.name}, {student.grade}\n")
+
+
+#Principio O(abierto/cerrado):
+
+class Greeting:
+    def __init__(self, greeter):
+        self.greeter = greeter
+
+    def say_hello(self):
+        self.greeter.greet()
+
+class EnglishGreeter:
+    def greet(self):
+        print("Hello!")
+
+class SpanishGreeter:
+    def greet(self):
+        print("¡Hola!")
+
+#Principio L(Principio de sustitución de Liskov):
+
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):  # Clase abstracta
+    @abstractmethod
+    def move(self):
+        pass
+
+class Car(Vehicle):  # Hereda de Vehicle
+    def move(self):
+        print("Car is moving with engine")
+
+class Bicycle(Vehicle):  # Hereda de Vehicle
+    def move(self):
+        print("Bicycle is moving with pedals")
+
+#Definición principio L: Establece que los objetos de una clase derivada deben
+#poder sustituir a los de una clase base sin alterar el comportamiento correcto del programa.
+#Las clases base abstractas (ABC) son útiles para definir métodos que deben ser implementados
+#por las clases hijas, asegurando que las clases derivadas tengan el comportamiento esperado.
