@@ -1,26 +1,30 @@
+from Model import *
+from View import *
+from Controller import *
 
-
-from Modulo1 import *
-
-if __name__ == "__main__":
-
-    print("1. agregar publisher\n")
-    print("2. filtrar\n")
-    print("3. salir\n")
-
-    op = int(input("ingrese opción deseada: "))
-
-    #crear publishers:
-    while op !=3:
-        if op == 1:
-            id = input("ingrese el id\n")
-            nombre = input("ingrese el nombre\n")
-            pais = input("ingrese el pais\n")
-            tot_ventas = input("ingrese el total de ventas\n")
-            addPublisher(id, nombre, pais, tot_ventas)
-        elif op == 2:
-            tot_ventas = input ("ingrese el total de ventas\n")
-            filterPublisherByTotalSales_FilterLambda(tot_ventas)
-
-        op = int(input("ingrese opción deseada:"))   
+def main():
+    # Instanciar objetos de MVC:
+    myModel = ProductModel()
+    myView = ProductView()
+    myController = ProductCatalogController(myModel, myView)
     
+    # Imprimir opciones:
+    print("Menu\n")
+    print("1. Adicionar Producto ")
+    print("2. Mostrar Catálogo ")
+    print("3. Salir ")
+    
+    while True:
+        # Manejar opciones:
+        sel = int(input("Seleccione una opción: "))
+        if sel == 1:
+            myController.addNewProduct()
+        elif sel == 2:
+            myController.showProducts()
+        elif sel == 3:
+            break  # Salir del bucle
+        else:
+            print("Opción no válida")
+        
+if __name__ == "__main__":
+    main()

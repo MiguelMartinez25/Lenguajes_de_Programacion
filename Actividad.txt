@@ -1,0 +1,12 @@
+1. ¿Qué principios SOLID están presentes?
+Están presentes los principios: 
+Single responsibility: Cada clase tiene una única responsabilidad, en ProductModel se maneja la lógica relacionada con el catálogo de productos.
+En ProductView, se encarga de la presentación y en ProductCatalogController se gestiona la interación entre el modelo y la vista
+Opened/closed: Las clases están abiertas a la extensión pero cerradas a la modificación. Se pueden añadir nuevas funcionalidades (por ejemplo, más métodos en el controlador) sin cambiar el código existente.
+Liskov: Aunque no se ve una herencia explícita, el principio se mantiene si se considera que cualquier clase derivada de Product debería funcionar en cualquier contexto donde se use Product.
+
+2. ¿Cómo incorporar Observer para que el controlador reaccione a eventos de la vista (View) o del modelo (Model)?
+
+3. El catáñlogo es un recurso compartido, ¿Qué patrón de diseño se puede usar?
+
+4. ¿Cómo agregar más formas de guardar productos?
