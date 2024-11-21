@@ -1,0 +1,93 @@
+1. Métodos Sincronizados (synchronized)
+Ventajas
+Fácil de implementar:
+
+Java maneja automáticamente la sincronización cuando se usa la palabra clave synchronized. No necesitas preocuparte por el desbloqueo manual ni por problemas de estado.
+Garantiza exclusión mutua:
+
+Solo un hilo puede acceder al bloque o método sincronizado a la vez. Esto asegura consistencia en el acceso a los datos compartidos.
+Seguro para datos complejos:
+
+Ideal para proteger secciones críticas o realizar operaciones múltiples que requieren consistencia en los datos (ej. leer, modificar y escribir).
+Compatibilidad con versiones antiguas de Java:
+
+Es una técnica básica y ampliamente soportada en cualquier versión de Java.
+Desventajas
+Rendimiento bajo en escenarios concurrentes:
+
+Los métodos sincronizados bloquean completamente el acceso a los recursos mientras un hilo los usa, lo que puede causar cuellos de botella en sistemas con alta concurrencia.
+Bloqueo de hilos:
+
+Si un hilo entra en un método sincronizado, otros hilos tienen que esperar hasta que el primero termine, incluso si solo necesitan leer un valor.
+Menor flexibilidad:
+
+No permite realizar operaciones más avanzadas como interrupción del bloqueo o tiempo de espera (tryLock), lo que puede ser necesario en escenarios más complejos.
+2. Candados (Lock y ReentrantLock)
+Ventajas
+Mayor control:
+
+Puedes bloquear y desbloquear manualmente el recurso con métodos como lock() y unlock(). Esto permite implementar patrones más avanzados de sincronización.
+Sincronización más flexible:
+
+Permite usar métodos como tryLock() para intentar obtener el bloqueo sin esperar indefinidamente, lo que evita problemas de bloqueo prolongado.
+Interrupción de hilos:
+
+Los hilos pueden ser interrumpidos mientras esperan un bloqueo (lockInterruptibly()), útil en sistemas en tiempo real o con alta disponibilidad.
+Mejor rendimiento:
+
+Es más eficiente que synchronized en aplicaciones con alta concurrencia porque no bloquea automáticamente otros métodos no críticos.
+Desventajas
+Mayor complejidad:
+
+Requiere un manejo manual del bloqueo y desbloqueo. Si olvidas liberar un bloqueo, puede provocar deadlocks y problemas difíciles de depurar.
+Sobrecarga en escenarios simples:
+
+Puede ser excesivo si solo necesitas una sincronización básica, ya que los candados son más difíciles de manejar y requieren más líneas de código.
+No es tan intuitivo:
+
+Comparado con synchronized, los candados necesitan más conocimiento del programador para su correcto uso.
+3. AtomicInteger
+Ventajas
+Operaciones atómicas sin bloqueo:
+
+Todas las operaciones proporcionadas (como addAndGet, incrementAndGet, y compareAndSet) son atómicas y no bloquean hilos.
+Alto rendimiento:
+
+Es ideal para aplicaciones de alta concurrencia porque no requiere sincronización explícita. Usa operaciones a nivel de hardware para mantener la consistencia.
+Fácil de usar para operaciones básicas:
+
+Muy útil cuando solo necesitas realizar operaciones sencillas como incrementar, decrementar, o verificar condiciones.
+Evita problemas de deadlock:
+
+Al no bloquear recursos, elimina la posibilidad de que hilos se queden esperando indefinidamente.
+Desventajas
+Limitado a operaciones simples:
+
+Solo funciona para tipos de datos básicos como enteros o booleanos. Si necesitas realizar operaciones complejas, requiere implementar lógica adicional.
+Menor flexibilidad:
+
+Aunque es rápido y seguro para ciertas tareas, no puede manejar escenarios en los que varias variables o recursos estén relacionados (ej., operaciones dependientes entre múltiples datos).
+Dificultad en extensibilidad:
+
+No puedes extender AtomicInteger para agregar comportamiento personalizado.
+4. Variable volatile
+Ventajas
+Visibilidad entre hilos:
+
+Garantiza que los cambios en la variable sean visibles inmediatamente para todos los hilos. Esto evita problemas de caché entre núcleos de CPU.
+Sin bloqueos:
+
+No requiere sincronización explícita, por lo que es más rápido en operaciones que no necesitan consistencia total.
+Simplicidad:
+
+Es fácil de usar y aplicar para resolver problemas básicos de concurrencia.
+Desventajas
+No asegura atomicidad:
+
+Las operaciones que involucran múltiples pasos (ej., leer, modificar y escribir) no están protegidas contra interferencias de otros hilos. Esto puede causar condiciones de carrera.
+Útil solo en casos específicos:
+
+Solo garantiza visibilidad. Si necesitas exclusión mutua o sincronización más compleja, volatile no es suficiente.
+Menor rendimiento en ciertas situaciones:
+
+Aunque es rápido en lectura/escritura básica, puede volverse ineficiente si necesitas realizar verificaciones o cambios consistentes en variables complejas.
